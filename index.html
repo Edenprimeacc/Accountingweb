@@ -1,799 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Axiom Precision</title>
-    <!-- Premium Serif ve Sans-serif Fontlar -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Prata&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Tasarım Renk Paleti ve Değişkenler */
-        :root {
-            --bg-dark: #070d1e;       /* Fotoğraflardaki o asil koyu gece mavisi */
-            --bg-light: #f8f9fa;      /* Temiz beyaz/gri geçiş arka planı */
-            --accent-blue: #2563eb;  /* Canlı mavi (Consult butonu ve linkler) */
-            --text-dark: #0f172a;    /* Koyu gri/siyah yazı */
-            --text-light: #f8fafc;   /* Beyaz yazı */
-            --text-muted: #64748b;   /* İnce gri açıklamalar */
-            --border-color: rgba(255, 255, 255, 0.1);
-            --border-dark: #e2e8f0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        body {
-            background-color: #ffffff;
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
-
-        /* Başlıklar için Serif Fontu */
-        h1, h2, .serif-font {
-            font-family: 'Prata', serif;
-            font-weight: 400;
-        }
-
-        /* --- GLOBAL COMPONENTS --- */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-padding {
-            padding: 5rem 0;
-        }
-
-        /* --- 1. HEADER SECTION --- */
-        header {
-            border-bottom: 1px solid var(--border-dark);
-            padding: 1.5rem 0;
-            background: #ffffff;
-        }
-
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.05em;
-        }
-
-        .logo span {
-            color: var(--accent-blue);
-            font-weight: 400;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 500;
-        }
-
-        .btn-consult {
-            border: 1px solid var(--text-dark);
-            padding: 0.5rem 1.5rem;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            text-decoration: none;
-            color: var(--text-dark);
-            transition: all 0.3s ease;
-        }
-
-        .btn-consult:hover {
-            background: var(--text-dark);
-            color: #ffffff;
-        }
-
-        /* --- 2. HERO SECTION --- */
-        .hero {
-            background: #ffffff;
-            padding: 6rem 0 4rem 0;
-        }
-
-        .hero-tag {
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .hero h1 {
-            font-size: 5.5rem;
-            line-height: 1.05;
-            letter-spacing: -0.02em;
-            color: var(--bg-dark);
-            margin-bottom: 4rem;
-        }
-
-        .hero-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-top: 1px solid var(--border-dark);
-            padding-top: 2rem;
-        }
-
-        .hero-desc {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 500px;
-            line-height: 1.5;
-        }
-
-        .live-pulse {
-            text-align: right;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .live-pulse span {
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-
-        /* --- 3. CAPABILITIES SECTION (DARK) --- */
-        .capabilities {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-        }
-
-        .section-header-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            margin-bottom: 4rem;
-            align-items: start;
-        }
-
-        .caps-tag {
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            display: block;
-            margin-bottom: 1rem;
-        }
-
-        .capabilities h2 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-        }
-
-        .caps-right-text {
-            color: #94a3b8;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            max-width: 450px;
-            justify-self: end;
-        }
-
-        .matrix-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            border-top: 1px solid var(--border-color);
-            border-left: 1px solid var(--border-color);
-        }
-
-        .matrix-item {
-            border-right: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 3rem;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        .matrix-item.empty {
-            background: rgba(255,255,255,0.02);
-        }
-
-        .matrix-num {
-            font-size: 0.75rem;
-            color: var(--accent-blue);
-            font-weight: 700;
-        }
-
-        .matrix-title {
-            font-size: 2.2rem;
-            font-family: 'Prata', serif;
-        }
-
-        /* --- 4. LUMINOUS STABILITY SECTION --- */
-        .stability {
-            background: #ffffff;
-        }
-
-        .stability-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 4rem;
-        }
-
-        .stability-left p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-top: 1.5rem;
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            border: 1px solid var(--border-dark);
-        }
-
-        .stat-box {
-            padding: 2.5rem 1.5rem;
-            border-right: 1px solid var(--border-dark);
-            text-align: left;
-        }
-
-        .stat-box:last-child {
-            border-right: none;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-family: 'Prata', serif;
-            color: var(--bg-dark);
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent-blue);
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .stat-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        /* --- 5. CLIENT DASHBOARD AREA --- */
-        .dashboard-zone {
-            background: var(--bg-light);
-            text-align: center;
-            padding: 4rem 0;
-        }
-
-        .dash-tag {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--accent-blue);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .dashboard-zone h2 {
-            font-size: 3.5rem;
-            color: var(--bg-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .dash-sub {
-            font-style: italic;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-        }
-
-        /* Mock Browser Window */
-        .browser-mock {
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-dark);
-            overflow: hidden;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .browser-header {
-            background: #f1f5f9;
-            padding: 0.75rem 1.5rem;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid var(--border-dark);
-        }
-
-        .circles {
-            display: flex;
-            gap: 0.5rem;
-            margin-right: 2rem;
-        }
-
-        .circle {
-            width: 10px;
-            height: 10px;
-            background: #cbd5e1;
-            border-radius: 50%;
-        }
-
-        .browser-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .browser-title span {
-            color: #10b981; /* Yeşil Encrypted noktası */
-            margin-left: 0.5rem;
-        }
-
-        .browser-content {
-            height: 300px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .green-bar {
-            background: #00b050; /* Eden Prime Yeşil Rengi */
-            height: 120px;
-            width: 100%;
-            position: relative;
-            padding: 1.5rem;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .eden-badge {
-            background: #ffffff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .eden-badge h4 {
-            font-size: 1.1rem;
-            color: #044e29;
-            font-weight: 700;
-        }
-
-        .eden-badge opacity {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-        }
-
-        .white-blank {
-            background: #ffffff;
-            flex-grow: 1;
-        }
-
-        /* --- 6. CONSULTATION FORM SECTION (DARK) --- */
-        .consultation {
-            background: var(--bg-dark);
-            color: var(--text-light);
-        }
-
-        .consult-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 6rem;
-        }
-
-        .consult-left h2 {
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-top: 1rem;
-        }
-
-        .consult-p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin: 2rem 0;
-        }
-
-        .info-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            margin-bottom: 0.25rem;
-            display: block;
-        }
-
-        .info-value {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Form Elemanları */
-        .consult-form {
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .form-group label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input, .form-group textarea {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding: 0.5rem 0;
-            color: var(--text-light);
-            font-size: 1.1rem;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            border-bottom-color: var(--accent-blue);
-        }
-
-        .btn-submit {
-            background: #2b66f5;
-            color: white;
-            border: none;
-            padding: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        .btn-submit:hover {
-            background: #1d4ed8;
-        }
-
-        /* --- 7. FOOTER SECTION --- */
-        footer {
-            background: #ffffff;
-            padding: 4rem 0 2rem 0;
-            border-top: 1px solid var(--border-dark);
-        }
-
-        .footer-main {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .footer-brand h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .footer-brand h3 span {
-            color: var(--accent-blue);
-            font-weight: 400;
-        }
-
-        .footer-brand p {
-            color: var(--text-muted);
-            max-width: 320px;
-            line-height: 1.5;
-        }
-
-        .footer-links h5 {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #94a3b8;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links ul li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links ul li a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 1rem;
-            transition: color 0.2s ease;
-        }
-
-        .footer-links ul li a:hover {
-            color: var(--accent-blue);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid var(--border-dark);
-            padding-top: 2rem;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .footer-bottom-right {
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        /* --- RESPONSIVE TASARIM (MOBİL UYUMLULUK) --- */
-        @media (max-width: 968px) {
-            .hero h1 { font-size: 3.5rem; }
-            .matrix-grid { grid-template-columns: 1fr 1fr; }
-            .section-header-grid, .stability-grid, .consult-grid, .footer-main {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-            .caps-right-text { justify-self: start; }
-            .form-row { grid-template-columns: 1fr; }
-            .stats-container { grid-template-columns: 1fr; }
-            .stat-box { border-right: none; border-bottom: 1px solid var(--border-dark); }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 1. HEADER SECTION -->
-    <header>
-        <div class="container header-inner">
-            <div class="logo">Axiom<span>.Precision</span></div>
-            <nav>
-                <a href="#services">Services</a>
-                <a href="#portal">Client Portal</a>
-                <a href="#approach">Approach</a>
-                <a href="#consult" class="btn-consult">Consult</a>
-            </nav>
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
+import AuthLayout from "@/components/AuthLayout";
+import GoogleIcon from "@/components/GoogleIcon";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      await base44.auth.loginViaEmailPassword(email, password);
+      window.location.href = "/";
+    } catch (err) {
+      setError(err.message || "Invalid email or password");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogle = () => {
+    base44.auth.loginWithProvider("google", "/");
+  };
+
+  return (
+    <AuthLayout
+      icon={LogIn}
+      title="Welcome back"
+      subtitle="Log in to your account"
+      footer={
+        <>
+          Don't have an account?{" "}
+          <Link to="/register" className="text-primary font-medium hover:underline">
+            Create one
+          </Link>
+        </>
+      }
+    >
+      <Button
+        variant="outline"
+        className="w-full h-12 text-sm font-medium mb-6"
+        onClick={handleGoogle}
+      >
+        <GoogleIcon className="w-5 h-5 mr-2" />
+        Continue with Google
+      </Button>
+
+      <div className="relative mb-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-border" />
         </div>
-    </header>
-
-    <!-- 2. HERO SECTION -->
-    <section class="hero">
-        <div class="container">
-            <span class="hero-tag">Fiscal Architecture</span>
-            <h1>The Geometry<br>of Growth.</h1>
-            <div class="hero-footer">
-                <p class="hero-desc">We transcend traditional bookkeeping to architect financial clarity — precise analysis, forecasting, and stewardship for visionary enterprises.</p>
-                <div class="live-pulse">Live Pulse<br><span>Aax • 2.0</span></div>
-            </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-card px-3 text-muted-foreground">or</span>
         </div>
-    </section>
+      </div>
 
-    <!-- 3. CAPABILITIES SECTION (DARK MATRIX) -->
-    <section id="services" class="capabilities section-padding">
-        <div class="container">
-            <div class="section-header-grid">
-                <div>
-                    <span class="caps-tag">The Service Matrix</span>
-                    <h2>Precision<br>Capabilities.</h2>
-                </div>
-                <p class="caps-right-text">Five disciplines, one engine. Each module integrates into a unified financial architecture engineered for compounding clarity.</p>
-            </div>
-            
-            <div class="matrix-grid">
-                <div class="matrix-item">
-                    <span class="matrix-num">01</span>
-                    <h3 class="matrix-title">Bookkeeping</h3>
-                </div>
-                <div class="matrix-item">
-                    <span class="matrix-num">02</span>
-                    <h3 class="matrix-title">Payroll</h3>
-                </div>
-                <div class="matrix-item">
-                    <span class="matrix-num">03</span>
-                    <h3 class="matrix-title">Financial Analysis</h3>
-                </div>
-                <div class="matrix-item">
-                    <span class="matrix-num">04</span>
-                    <h3 class="matrix-title">Reporting</h3>
-                </div>
-                <div class="matrix-item">
-                    <span class="matrix-num">05</span>
-                    <h3 class="matrix-title">Budget & Forecast</h3>
-                </div>
-                <div class="matrix-item empty">
-                    <!-- Boş Bırakılan 6. Kutu -->
-                </div>
-            </div>
+      {error && (
+        <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
+          {error}
         </div>
-    </section>
+      )}
 
-    <!-- 4. LUMINOUS STABILITY & STATS SECTION -->
-    <section class="stability section-padding">
-        <div class="container">
-            <div class="stability-grid">
-                <div class="stability-left">
-                    <span class="hero-tag">The Architectural Code</span>
-                    <h2>Luminous<br>Stability.</h2>
-                    <p>We reject the cluttered, anxiety-inducing aesthetics of traditional finance. Each report is rendered with structural elegance — a masterwork of professional art where the bottom line is always visible, always true.</p>
-                </div>
-                <div class="stats-container">
-                    <div class="stat-box">
-                        <span class="stat-number">16.2:1</span>
-                        <span class="stat-label">Clarity Ratio</span>
-                        <p class="stat-desc">Every figure, legible by design.</p>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-number">AAA</span>
-                        <span class="stat-label">Integrity Grade</span>
-                        <p class="stat-desc">Compliance without compromise.</p>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-number">24/7</span>
-                        <span class="stat-label">Pulse Access</span>
-                        <p class="stat-desc">Your numbers, always in view.</p>
-                    </div>
-                </div>
-            </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
+            <Input
+              id="email"
+              type="email"
+              autoComplete="email"
+              autoFocus
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="pl-10 h-12"
+              required
+            />
+          </div>
         </div>
-    </section>
-
-    <!-- 5. CLIENT DASHBOARD PORTAL AREA -->
-    <section id="portal" class="dashboard-zone">
-        <div class="container">
-            <span class="dash-tag">The Intelligence Portal</span>
-            <h2>Client Dashboard.</h2>
-            <p class="dash-sub">Secure. Real-time. Absolute.</p>
-            
-            <!-- Browser Mockup Windows -->
-            <div class="browser-mock">
-                <div class="browser-header">
-                    <div class="circles">
-                        <div class="circle"></div>
-                        <div class="circle"></div>
-                        <div class="circle"></div>
-                    </div>
-                    <div class="browser-title">Secure Analytical Environment // Axiom 2.0 <span>● Encrypted</span></div>
-                </div>
-                <div class="browser-content">
-                    <div class="green-bar">
-                        <div class="eden-badge">
-                            <h4>Eden Prime</h4>
-                            <span style="font-size: 0.6rem; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em;">Consulting</span>
-                        </div>
-                    </div>
-                    <div class="white-blank"></div>
-                </div>
-            </div>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="password">Password</Label>
+            <Link to="/forgot-password" className="text-xs text-primary hover:underline">
+              Forgot password?
+            </Link>
+          </div>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
+            <Input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="pl-10 h-12"
+              required
+            />
+          </div>
         </div>
-    </section>
-
-    <!-- 6. CONSULTATION FORM SECTION (DARK) -->
-    <section id="consult" class="consultation section-padding">
-        <div class="container">
-            <div class="consult-grid">
-                <div class="consult-left">
-                    <span class="caps-tag">Strategic Inquiry</span>
-                    <h2>Begin a<br>Consultation.</h2>
-                    <p class="consult-p">This is an intake for a private consultation — not a generic contact box. Share where you are, and we'll architect the path to where you're going.</p>
-                    
-                    <div>
-                        <span class="info-label">Inquiries</span>
-                        <p class="info-value">hello@axiomprecision.com</p>
-                        
-                        <span class="info-label">Location</span>
-                        <p class="info-value">Financial District<br>New York, NY</p>
-                    </div>
-                </div>
-                
-                <div>
-                    <form class="consult-form" onsubmit="event.preventDefault(); alert('Consultation request simulated successfully!');">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Entity / Company</label>
-                            <input type="text" id="company">
-                        </div>
-                        <div class="form-group">
-                            <label for="brief">Brief</label>
-                            <textarea id="brief" rows="3" placeholder="Where are you now, and where are you going?"></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">Request Consultation</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. FOOTER SECTION -->
-    <footer>
-        <div class="container">
-            <div class="footer-main">
-                <div class="footer-brand">
-                    <h3>Axiom<span>.Precision</span></h3>
-                    <p>The Geometry of Growth. Architecting financial clarity for visionary enterprises.</p>
-                </div>
-                <div class="footer-links">
-                    <h5>Capabilities</h5>
-                    <ul>
-                        <li><a href="#">Bookkeeping</a></li>
-                        <li><a href="#">Payroll</a></li>
-                        <li><a href="#">Financial Analysis</a></li>
-                        <li><a href="#">Reporting</a></li>
-                        <li><a href="#">Budget & Forecast</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h5>Navigate</h5>
-                    <ul>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#portal">Client Portal</a></li>
-                        <li><a href="#approach">Approach</a></li>
-                        <li><a href="#consult">Consult</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div>© 2026 Axiom Precision. All rights reserved.</div>
-                <div class="footer-bottom-right">Fiscal Architecture • AAX 2.0</div>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+        <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Logging in...
+            </>
+          ) : (
+            "Log in"
+          )}
+        </Button>
+      </form>
+    </AuthLayout>
+  );
+}
