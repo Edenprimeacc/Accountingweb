@@ -103,10 +103,18 @@
             color: #ffffff;
         }
 
-        /* --- 2. HERO SECTION (Yazı Boyutu Küçültüldü) --- */
+        /* --- 2. HERO SECTION & ANIMATED CHART LAYOUT --- */
         .hero {
             background: #ffffff;
             padding: 6rem 0 4rem 0;
+        }
+
+        .hero-main-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* Yazı ve grafik yan yana */
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
         }
 
         .hero-tag {
@@ -120,11 +128,72 @@
         }
 
         .hero h1 {
-            font-size: 4.2rem; /* Başlık boyutu dengelendi */
+            font-size: 4.2rem;
             line-height: 1.15;
             letter-spacing: -0.02em;
             color: var(--bg-dark);
-            margin-bottom: 4rem;
+        }
+
+        /* Hareket Eden Finansal Grafik Alanı */
+        .chart-container {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            background: #fafafa;
+            border: 1px solid var(--border-dark);
+            border-radius: 6px;
+            padding: 2rem;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        /* Kılavuz Çizgileri */
+        .chart-grid-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            border-top: 1px dashed rgba(0,0,0,0.05);
+        }
+        .line-1 { top: 25%; }
+        .line-2 { top: 50%; }
+        .line-3 { top: 75%; }
+
+        /* Hareketli Grafik Çizgisi Svg */
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .main-line {
+            stroke: var(--accent-blue);
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 4s ease-out forwards infinite alternate;
+        }
+
+        /* Grafik Üzerindeki Parlayan Nokta */
+        .chart-dot {
+            fill: var(--accent-blue);
+            stroke: #ffffff;
+            stroke-width: 3;
+            animation: moveDot 4s ease-out infinite alternate;
+        }
+
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes moveDot {
+            0% { cx: 20; cy: 180; }
+            20% { cx: 100; cy: 130; }
+            40% { cx: 180; cy: 150; }
+            65% { cx: 260; cy: 80; }
+            85% { cx: 340; cy: 110; }
+            100% { cx: 420; cy: 30; }
         }
 
         .hero-footer {
@@ -155,7 +224,7 @@
             font-weight: 700;
         }
 
-        /* --- 3. CAPABILITIES SECTION (Hover ile Açıklama Çıkma Efekti) --- */
+        /* --- 3. CAPABILITIES SECTION --- */
         .capabilities {
             background-color: var(--bg-dark);
             color: var(--text-light);
@@ -210,7 +279,6 @@
             transition: background-color 0.4s ease;
         }
 
-        /* Üzerine gelince kutu parlasın */
         .matrix-item:hover {
             background-color: rgba(37, 99, 235, 0.08);
         }
@@ -226,11 +294,10 @@
         .matrix-title {
             font-size: 2.2rem;
             font-family: 'Prata', serif;
-            color: #ffffff; /* Beyaz yazılar tamamen belirgin */
+            color: #ffffff;
             margin-bottom: 1rem;
         }
 
-        /* Gizli açıklama yazıları stili */
         .matrix-desc {
             font-size: 0.95rem;
             color: #94a3b8;
@@ -241,7 +308,6 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Hover durumunda açıklamanın yumuşakça açılması */
         .matrix-item:hover .matrix-desc {
             max-height: 100px;
             opacity: 1;
@@ -426,6 +492,7 @@
         }
 
         @media (max-width: 968px) {
+            .hero-main-grid { grid-template-columns: 1fr; gap: 2rem; }
             .hero h1 { font-size: 3rem; }
             .matrix-grid { grid-template-columns: 1fr; }
             .section-header-grid, .consult-grid, .footer-main {
@@ -451,11 +518,28 @@
         </div>
     </header>
 
-    <!-- 2. HERO SECTION -->
+    <!-- 2. HERO SECTION (Yazı ve Grafik Yan Yana Bağlandı) -->
     <section class="hero">
         <div class="container">
-            <span class="hero-tag">Fiscal Architecture</span>
-            <h1>The Geometry<br>of Growth.</h1>
+            <div class="hero-main-grid">
+                <div>
+                    <span class="hero-tag">Fiscal Architecture</span>
+                    <h1>The Geometry<br>of Growth.</h1>
+                </div>
+                <!-- CSS Tabanlı Hareket Eden Grafik Paneli -->
+                <div class="chart-container">
+                    <div class="chart-grid-line line-1"></div>
+                    <div class="chart-grid-line line-2"></div>
+                    <div class="chart-grid-line line-3"></div>
+                    <svg class="chart-svg" viewBox="0 0 440 200">
+                        <!-- Yükselen Finansal Eğri -->
+                        <path class="main-line" d="M 20 180 Q 100 130, 180 150 T 340 110 T 420 30" />
+                        <!-- Eğri Üstünde Hareket Eden Trend Noktası -->
+                        <circle class="chart-dot" r="6" cx="20" cy="180" />
+                    </svg>
+                </div>
+            </div>
+            
             <div class="hero-footer">
                 <p class="hero-desc">We transcend traditional bookkeeping to architect financial clarity — precise analysis, forecasting, and stewardship for visionary enterprises.</p>
                 <div class="live-pulse">Live Pulse<br><span>Aax • 2.0</span></div>
@@ -463,7 +547,7 @@
         </div>
     </section>
 
-    <!-- 3. CAPABILITIES SECTION (MATRIS VE HOVER YAPISI) -->
+    <!-- 3. CAPABILITIES SECTION -->
     <section id="services" class="capabilities section-padding">
         <div class="container">
             <div class="section-header-grid">
@@ -475,37 +559,31 @@
             </div>
             
             <div class="matrix-grid">
-                <!-- 01 Bookkeeping -->
                 <div class="matrix-item">
                     <span class="matrix-num">01</span>
                     <h3 class="matrix-title">Bookkeeping</h3>
                     <p class="matrix-desc">Flawless tracking and structural ledger maintenance built to scale with your transaction flow.</p>
                 </div>
-                <!-- 02 Payroll -->
                 <div class="matrix-item">
                     <span class="matrix-num">02</span>
                     <h3 class="matrix-title">Payroll</h3>
                     <p class="matrix-desc">Automated compliance paired with human oversight. Your people, paid accurately and on time.</p>
                 </div>
-                <!-- 03 Financial Analysis -->
                 <div class="matrix-item">
                     <span class="matrix-num">03</span>
                     <h3 class="matrix-title">Financial Analysis</h3>
                     <p class="matrix-desc">Deep-dive assessment of capital performance, margins, and operational efficiency ratios.</p>
                 </div>
-                <!-- 04 Reporting -->
                 <div class="matrix-item">
                     <span class="matrix-num">04</span>
                     <h3 class="matrix-title">Reporting</h3>
                     <p class="matrix-desc">Elegant, executive-ready balance sheets and P&amp;L reports delivered with clinical clarity.</p>
                 </div>
-                <!-- 05 Budget & Forecast -->
                 <div class="matrix-item">
                     <span class="matrix-num">05</span>
                     <h3 class="matrix-title">Budget &amp; Forecast</h3>
                     <p class="matrix-desc">Predictive data modeling designed to reduce uncertainty and secure corporate runways.</p>
                 </div>
-                <!-- Boş Kutu -->
                 <div class="matrix-item empty"></div>
             </div>
         </div>
