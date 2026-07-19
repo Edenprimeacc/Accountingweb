@@ -103,7 +103,7 @@
             color: #ffffff;
         }
 
-        /* --- 2. HERO SECTION & ANIMATED CHART LAYOUT --- */
+        /* --- 2. HERO SECTION & INTERACTIVE CHARACTER LAYOUT --- */
         .hero {
             background: #ffffff;
             padding: 6rem 0 4rem 0;
@@ -111,8 +111,8 @@
 
         .hero-main-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr; /* Yazı ve grafik yan yana */
-            gap: 4rem;
+            grid-template-columns: 1.1fr 0.9fr; 
+            gap: 2rem;
             align-items: center;
             margin-bottom: 4rem;
         }
@@ -134,21 +134,48 @@
             color: var(--bg-dark);
         }
 
-        /* Hareket Eden Finansal Grafik Alanı */
-        .chart-container {
+        /* Karakter ve Grafik Birleşik Sahne Alanı */
+        .interactive-scene {
+            position: relative;
             width: 100%;
-            height: 250px;
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        /* Mavi Takımlı Adam Tasarımı ve Giriş Animasyonu */
+        .businessman-svg {
+            height: 100%;
+            width: auto;
+            overflow: visible;
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: characterEnter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+
+        /* Adamın Kolunun İşaret Etme Hareketi */
+        .pointing-arm {
+            transform-origin: 45px 120px;
+            transform: rotate(25deg);
+            animation: pointToChart 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.2s forwards;
+        }
+
+        /* Finansal Grafik Kutusu ve Giriş Animasyonu */
+        .chart-panel {
+            width: 65%;
+            height: 230px;
             position: relative;
             background: #fafafa;
             border: 1px solid var(--border-dark);
             border-radius: 6px;
-            padding: 2rem;
+            padding: 1.5rem;
             overflow: hidden;
-            display: flex;
-            align-items: flex-end;
+            opacity: 0;
+            transform: scale(0.95);
+            animation: chartReveal 0.8s ease-out 1.5s forwards;
         }
 
-        /* Kılavuz Çizgileri */
         .chart-grid-line {
             position: absolute;
             left: 0;
@@ -159,41 +186,79 @@
         .line-2 { top: 50%; }
         .line-3 { top: 75%; }
 
-        /* Hareketli Grafik Çizgisi Svg */
         .chart-svg {
             width: 100%;
             height: 100%;
             overflow: visible;
         }
 
+        /* Çizginin Çizilme Animasyonu (Adam işaret ettikten hemen sonra) */
         .main-line {
             stroke: var(--accent-blue);
-            stroke-width: 3;
+            stroke-width: 3.5;
             fill: none;
             stroke-dasharray: 1000;
             stroke-dashoffset: 1000;
-            animation: drawLine 4s ease-out forwards infinite alternate;
+            animation: drawLine 3.5s cubic-bezier(0.4, 0, 0.2, 1) 2s forwards infinite alternate;
         }
 
-        /* Grafik Üzerindeki Parlayan Nokta */
         .chart-dot {
             fill: var(--accent-blue);
             stroke: #ffffff;
             stroke-width: 3;
-            animation: moveDot 4s ease-out infinite alternate;
+            animation: moveDot 3.5s cubic-bezier(0.4, 0, 0.2, 1) 2s infinite alternate;
         }
 
+        /* Aşağı İn Uyarısı (Her şey bitince en son parlayacak) */
+        .scroll-indicator {
+            position: absolute;
+            bottom: -35px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: scrollPrompt 1s ease-out 4s forwards, pulseArrow 1.5s ease-in-out infinite alternate;
+        }
+
+        .scroll-indicator svg {
+            fill: var(--accent-blue);
+            width: 12px;
+            height: 12px;
+        }
+
+        /* --- ANIMASYON KODLARI (KEYFRAMES) --- */
+        @keyframes characterEnter {
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes pointToChart {
+            to { transform: rotate(-15deg); }
+        }
+        @keyframes chartReveal {
+            to { opacity: 1; transform: scale(1); }
+        }
         @keyframes drawLine {
             to { stroke-dashoffset: 0; }
         }
-
         @keyframes moveDot {
-            0% { cx: 20; cy: 180; }
-            20% { cx: 100; cy: 130; }
-            40% { cx: 180; cy: 150; }
-            65% { cx: 260; cy: 80; }
-            85% { cx: 340; cy: 110; }
-            100% { cx: 420; cy: 30; }
+            0% { cx: 20; cy: 160; }
+            25% { cx: 90; cy: 110; }
+            50% { cx: 160; cy: 130; }
+            75% { cx: 240; cy: 60; }
+            100% { cx: 300; cy: 25; }
+        }
+        @keyframes scrollPrompt {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseArrow {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(5px); }
         }
 
         .hero-footer {
@@ -202,6 +267,7 @@
             align-items: flex-end;
             border-top: 1px solid var(--border-dark);
             padding-top: 2rem;
+            position: relative;
         }
 
         .hero-desc {
@@ -493,6 +559,9 @@
 
         @media (max-width: 968px) {
             .hero-main-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .interactive-scene { height: 260px; }
+            .businessman-svg { display: none; } /* Mobilde ekran daralınca adam gizlenir grafik kalır */
+            .chart-panel { width: 100%; }
             .hero h1 { font-size: 3rem; }
             .matrix-grid { grid-template-columns: 1fr; }
             .section-header-grid, .consult-grid, .footer-main {
@@ -518,7 +587,7 @@
         </div>
     </header>
 
-    <!-- 2. HERO SECTION (Yazı ve Grafik Yan Yana Bağlandı) -->
+    <!-- 2. HERO SECTION -->
     <section class="hero">
         <div class="container">
             <div class="hero-main-grid">
@@ -526,17 +595,52 @@
                     <span class="hero-tag">Fiscal Architecture</span>
                     <h1>The Geometry<br>of Growth.</h1>
                 </div>
-                <!-- CSS Tabanlı Hareket Eden Grafik Paneli -->
-                <div class="chart-container">
-                    <div class="chart-grid-line line-1"></div>
-                    <div class="chart-grid-line line-2"></div>
-                    <div class="chart-grid-line line-3"></div>
-                    <svg class="chart-svg" viewBox="0 0 440 200">
-                        <!-- Yükselen Finansal Eğri -->
-                        <path class="main-line" d="M 20 180 Q 100 130, 180 150 T 340 110 T 420 30" />
-                        <!-- Eğri Üstünde Hareket Eden Trend Noktası -->
-                        <circle class="chart-dot" r="6" cx="20" cy="180" />
+                
+                <!-- İnteraktif Sahne Alanı (Adam + Grafik + Ok) -->
+                <div class="interactive-scene">
+                    
+                    <!-- Mavi Takım Elbiseli Adam Silüeti -->
+                    <svg class="businessman-svg" viewBox="0 0 120 240">
+                        <!-- Gövde / Mavi Takım Elbise -->
+                        <path d="M 20 240 L 30 140 L 45 110 L 75 110 L 90 140 L 100 240 Z" fill="#1e3a8a" />
+                        <!-- Beyaz Gömlek Detayı -->
+                        <path d="M 50 110 L 60 135 L 70 110 Z" fill="#ffffff" />
+                        <!-- Kravat (Açık Mavi) -->
+                        <path d="M 58 125 L 62 125 L 64 160 L 60 170 L 56 160 Z" fill="#38bdf8" />
+                        <!-- Baş / Ten Rengi -->
+                        <circle cx="60" cy="80" r="20" fill="#fbcfe8" style="fill: #fed7aa;" />
+                        <!-- Saç (Siyah) -->
+                        <path d="M 40 75 Q 60 55 80 75 Q 80 65 70 65 Q 60 60 50 65 Z" fill="#1e293b" />
+                        <!-- Sabit Kol -->
+                        <path d="M 25 135 Q 15 170 20 210" stroke="#1e3a8a" stroke-width="12" stroke-linecap="round" fill="none" />
+                        
+                        <!-- HAREKETLİ KOL (Grafiği İşaret Eden Kısım) -->
+                        <g class="pointing-arm">
+                            <path d="M 75 125 Q 105 120 125 95" stroke="#1e3a8a" stroke-width="12" stroke-linecap="round" fill="none" />
+                            <!-- El -->
+                            <circle cx="125" cy="95" r="7" fill="#fed7aa" />
+                        </g>
                     </svg>
+
+                    <!-- Finansal Grafik Paneli -->
+                    <div class="chart-panel">
+                        <div class="chart-grid-line line-1"></div>
+                        <div class="chart-grid-line line-2"></div>
+                        <div class="chart-grid-line line-3"></div>
+                        <svg class="chart-svg" viewBox="0 0 320 180">
+                            <path class="main-line" d="M 20 160 Q 90 110, 160 130 T 240 60 T 300 25" />
+                            <circle class="chart-dot" r="5.5" cx="20" cy="160" />
+                        </svg>
+                    </div>
+
+                    <!-- Aşağı Kaydır Uyarısı ve Hareket Eden Ok -->
+                    <div class="scroll-indicator">
+                        <span>Scroll Down For More Info</span>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 21l-12-18h24z"/>
+                        </svg>
+                    </div>
+
                 </div>
             </div>
             
