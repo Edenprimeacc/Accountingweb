@@ -1,125 +1,594 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
-import AuthLayout from "@/components/AuthLayout";
-import GoogleIcon from "@/components/GoogleIcon";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom Precision</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Prata&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #070d1e;       
+            --bg-light: #f8f9fa;      
+            --accent-blue: #2563eb;  
+            --text-dark: #0f172a;    
+            --text-light: #f8fafc;   
+            --text-muted: #64748b;   
+            --border-color: rgba(255, 255, 255, 0.1);
+            --border-dark: #e2e8f0;
+        }
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'DM Sans', sans-serif;
+        }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      await base44.auth.loginViaEmailPassword(email, password);
-      window.location.href = "/";
-    } catch (err) {
-      setError(err.message || "Invalid email or password");
-    } finally {
-      setLoading(false);
-    }
-  };
+        body {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
 
-  const handleGoogle = () => {
-    base44.auth.loginWithProvider("google", "/");
-  };
+        h1, h2, .serif-font {
+            font-family: 'Prata', serif;
+            font-weight: 400;
+        }
 
-  return (
-    <AuthLayout
-      icon={LogIn}
-      title="Welcome back"
-      subtitle="Log in to your account"
-      footer={
-        <>
-          Don't have an account?{" "}
-          <Link to="/register" className="text-primary font-medium hover:underline">
-            Create one
-          </Link>
-        </>
-      }
-    >
-      <Button
-        variant="outline"
-        className="w-full h-12 text-sm font-medium mb-6"
-        onClick={handleGoogle}
-      >
-        <GoogleIcon className="w-5 h-5 mr-2" />
-        Continue with Google
-      </Button>
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
-      <div className="relative mb-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-border" />
+        .section-padding {
+            padding: 5rem 0;
+        }
+
+        /* --- 1. HEADER SECTION --- */
+        header {
+            border-bottom: 1px solid var(--border-dark);
+            padding: 1.5rem 0;
+            background: #ffffff;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+
+        .logo span {
+            color: var(--accent-blue);
+            font-weight: 400;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        .btn-consult {
+            border: 1px solid var(--text-dark);
+            padding: 0.5rem 1.5rem;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .btn-consult:hover {
+            background: var(--text-dark);
+            color: #ffffff;
+        }
+
+        /* --- 2. HERO SECTION (Yazı Boyutu Küçültüldü) --- */
+        .hero {
+            background: #ffffff;
+            padding: 6rem 0 4rem 0;
+        }
+
+        .hero-tag {
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 4.2rem; /* Başlık boyutu dengelendi */
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--bg-dark);
+            margin-bottom: 4rem;
+        }
+
+        .hero-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid var(--border-dark);
+            padding-top: 2rem;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        .live-pulse {
+            text-align: right;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .live-pulse span {
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        /* --- 3. CAPABILITIES SECTION (Hover ile Açıklama Çıkma Efekti) --- */
+        .capabilities {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .section-header-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 4rem;
+            align-items: start;
+        }
+
+        .caps-tag {
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .capabilities h2 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+        }
+
+        .caps-right-text {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 450px;
+            justify-self: end;
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+        }
+
+        .matrix-item {
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 3rem 2.5rem;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.4s ease;
+        }
+
+        /* Üzerine gelince kutu parlasın */
+        .matrix-item:hover {
+            background-color: rgba(37, 99, 235, 0.08);
+        }
+
+        .matrix-num {
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .matrix-title {
+            font-size: 2.2rem;
+            font-family: 'Prata', serif;
+            color: #ffffff; /* Beyaz yazılar tamamen belirgin */
+            margin-bottom: 1rem;
+        }
+
+        /* Gizli açıklama yazıları stili */
+        .matrix-desc {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hover durumunda açıklamanın yumuşakça açılması */
+        .matrix-item:hover .matrix-desc {
+            max-height: 100px;
+            opacity: 1;
+            visibility: visible;
+            margin-top: 0.5rem;
+        }
+
+        .matrix-item.empty {
+            background: rgba(255,255,255,0.01);
+        }
+
+        /* --- 4. CONSULTATION FORM SECTION --- */
+        .consultation {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .consult-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+        }
+
+        .consult-left h2 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-top: 1rem;
+        }
+
+        .consult-p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 2rem 0;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .consult-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .form-group label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .btn-submit {
+            background: #2b66f5;
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .btn-submit:hover {
+            background: #1d4ed8;
+        }
+
+        /* --- 5. FOOTER SECTION --- */
+        footer {
+            background: #ffffff;
+            padding: 4rem 0 2rem 0;
+            border-top: 1px solid var(--border-dark);
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand h3 span {
+            color: var(--accent-blue);
+            font-weight: 400;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            max-width: 320px;
+            line-height: 1.5;
+        }
+
+        .footer-links h5 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent-blue);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-dark);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom-right {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 3rem; }
+            .matrix-grid { grid-template-columns: 1fr; }
+            .section-header-grid, .consult-grid, .footer-main {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .caps-right-text { justify-self: start; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HEADER SECTION -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo">Axiom<span>.Precision</span></div>
+            <nav>
+                <a href="#services">Services</a>
+                <a href="#consult">Approach</a>
+                <a href="#consult" class="btn-consult">Consult</a>
+            </nav>
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card px-3 text-muted-foreground">or</span>
-        </div>
-      </div>
+    </header>
 
-      {error && (
-        <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
-          {error}
+    <!-- 2. HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <span class="hero-tag">Fiscal Architecture</span>
+            <h1>The Geometry<br>of Growth.</h1>
+            <div class="hero-footer">
+                <p class="hero-desc">We transcend traditional bookkeeping to architect financial clarity — precise analysis, forecasting, and stewardship for visionary enterprises.</p>
+                <div class="live-pulse">Live Pulse<br><span>Aax • 2.0</span></div>
+            </div>
         </div>
-      )}
+    </section>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
-            <Input
-              id="email"
-              type="email"
-              autoComplete="email"
-              autoFocus
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="pl-10 h-12"
-              required
-            />
-          </div>
+    <!-- 3. CAPABILITIES SECTION (MATRIS VE HOVER YAPISI) -->
+    <section id="services" class="capabilities section-padding">
+        <div class="container">
+            <div class="section-header-grid">
+                <div>
+                    <span class="caps-tag">The Service Matrix</span>
+                    <h2>Precision<br>Capabilities.</h2>
+                </div>
+                <p class="caps-right-text">Five disciplines, one engine. Each module integrates into a unified financial architecture engineered for compounding clarity.</p>
+            </div>
+            
+            <div class="matrix-grid">
+                <!-- 01 Bookkeeping -->
+                <div class="matrix-item">
+                    <span class="matrix-num">01</span>
+                    <h3 class="matrix-title">Bookkeeping</h3>
+                    <p class="matrix-desc">Flawless tracking and structural ledger maintenance built to scale with your transaction flow.</p>
+                </div>
+                <!-- 02 Payroll -->
+                <div class="matrix-item">
+                    <span class="matrix-num">02</span>
+                    <h3 class="matrix-title">Payroll</h3>
+                    <p class="matrix-desc">Automated compliance paired with human oversight. Your people, paid accurately and on time.</p>
+                </div>
+                <!-- 03 Financial Analysis -->
+                <div class="matrix-item">
+                    <span class="matrix-num">03</span>
+                    <h3 class="matrix-title">Financial Analysis</h3>
+                    <p class="matrix-desc">Deep-dive assessment of capital performance, margins, and operational efficiency ratios.</p>
+                </div>
+                <!-- 04 Reporting -->
+                <div class="matrix-item">
+                    <span class="matrix-num">04</span>
+                    <h3 class="matrix-title">Reporting</h3>
+                    <p class="matrix-desc">Elegant, executive-ready balance sheets and P&amp;L reports delivered with clinical clarity.</p>
+                </div>
+                <!-- 05 Budget & Forecast -->
+                <div class="matrix-item">
+                    <span class="matrix-num">05</span>
+                    <h3 class="matrix-title">Budget &amp; Forecast</h3>
+                    <p class="matrix-desc">Predictive data modeling designed to reduce uncertainty and secure corporate runways.</p>
+                </div>
+                <!-- Boş Kutu -->
+                <div class="matrix-item empty"></div>
+            </div>
         </div>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="password">Password</Label>
-            <Link to="/forgot-password" className="text-xs text-primary hover:underline">
-              Forgot password?
-            </Link>
-          </div>
-          <div className="relative">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
-            <Input
-              id="password"
-              type="password"
-              autoComplete="current-password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="pl-10 h-12"
-              required
-            />
-          </div>
+    </section>
+
+    <!-- 4. CONSULTATION FORM SECTION -->
+    <section id="consult" class="consultation section-padding">
+        <div class="container">
+            <div class="consult-grid">
+                <div class="consult-left">
+                    <span class="caps-tag">Strategic Inquiry</span>
+                    <h2>Begin a<br>Consultation.</h2>
+                    <p class="consult-p">This is an intake for a private consultation — not a generic contact box. Share where you are, and we'll architect the path to where you're going.</p>
+                    
+                    <div>
+                        <span class="info-label">Inquiries</span>
+                        <p class="info-value">hello@axiomprecision.com</p>
+                        
+                        <span class="info-label">Location</span>
+                        <p class="info-value">Financial District<br>New York, NY</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <form class="consult-form" onsubmit="event.preventDefault(); alert('Consultation request simulated successfully!');">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Entity / Company</label>
+                            <input type="text" id="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="brief">Brief</label>
+                            <textarea id="brief" rows="3" placeholder="Where are you now, and where are you going?"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Request Consultation</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
-          {loading ? (
-            <>
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Logging in...
-            </>
-          ) : (
-            "Log in"
-          )}
-        </Button>
-      </form>
-    </AuthLayout>
-  );
-}
+    </section>
+
+    <!-- 5. FOOTER SECTION -->
+    <footer>
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <h3>Axiom<span>.Precision</span></h3>
+                    <p>The Geometry of Growth. Architecting financial clarity for visionary enterprises.</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Capabilities</h5>
+                    <ul>
+                        <li><a href="#services">Bookkeeping</a></li>
+                        <li><a href="#services">Payroll</a></li>
+                        <li><a href="#services">Financial Analysis</a></li>
+                        <li><a href="#services">Reporting</a></li>
+                        <li><a href="#services">Budget &amp; Forecast</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Navigate</h5>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#consult">Approach</a></li>
+                        <li><a href="#consult">Consult</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Axiom Precision. All rights reserved.</div>
+                <div class="footer-bottom-right">Fiscal Architecture • AAX 2.0</div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
