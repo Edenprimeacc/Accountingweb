@@ -48,6 +48,26 @@
             padding: 5rem 0;
         }
 
+        /* --- TOP BANNER / VISION IMAGE SECTION --- */
+        .hero-banner {
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
         /* --- 1. HEADER SECTION --- */
         header {
             border-bottom: 1px solid var(--border-dark);
@@ -192,7 +212,7 @@
             overflow: visible;
         }
 
-        /* Çizginin Çizilme Animasyonu (Adam işaret ettikten hemen sonra) */
+        /* Çizginin Çizilme Animasyonu */
         .main-line {
             stroke: var(--accent-blue);
             stroke-width: 3.5;
@@ -209,7 +229,7 @@
             animation: moveDot 3.5s cubic-bezier(0.4, 0, 0.2, 1) 2s infinite alternate;
         }
 
-        /* Aşağı İn Uyarısı (Her şey bitince en son parlayacak) */
+        /* Aşağı İn Uyarısı */
         .scroll-indicator {
             position: absolute;
             bottom: -35px;
@@ -560,7 +580,7 @@
         @media (max-width: 968px) {
             .hero-main-grid { grid-template-columns: 1fr; gap: 2rem; }
             .interactive-scene { height: 260px; }
-            .businessman-svg { display: none; } /* Mobilde ekran daralınca adam gizlenir grafik kalır */
+            .businessman-svg { display: none; }
             .chart-panel { width: 100%; }
             .hero h1 { font-size: 3rem; }
             .matrix-grid { grid-template-columns: 1fr; }
@@ -574,6 +594,11 @@
     </style>
 </head>
 <body>
+
+    <!-- VISION 1 TOP IMAGE HEADER -->
+    <div class="hero-banner">
+        <img src="Vision1.png" alt="Axiom Precision Vision">
+    </div>
 
     <!-- 1. HEADER SECTION -->
     <header>
