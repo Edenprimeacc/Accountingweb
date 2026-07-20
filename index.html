@@ -48,24 +48,25 @@
             padding: 5rem 0;
         }
 
-        /* --- TOP BANNER / VISION IMAGE SECTION --- */
+        /* --- TOP BANNER / VISION IMAGE SECTION (FIXED SIZE) --- */
         .hero-banner {
             width: 100%;
-            background: #ffffff;
+            background: #070d1e;
+            padding: 2.5rem 1rem;
             border-bottom: 1px solid var(--border-dark);
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
         .hero-banner img {
-            width: 100%;
-            max-width: 1280px;
+            max-width: 1000px;
+            width: 90%;
             height: auto;
-            max-height: 400px;
-            object-fit: cover;
-            display: block;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* --- 1. HEADER SECTION --- */
@@ -624,7 +625,7 @@
                 <!-- İnteraktif Sahne Alanı (Adam + Grafik + Ok) -->
                 <div class="interactive-scene">
                     
-                    <!-- Mavi Takım Elbiseli Adam Silüeti -->
+                    <!-- Mavi Takımlı Adam Silüeti -->
                     <svg class="businessman-svg" viewBox="0 0 120 240">
                         <!-- Gövde / Mavi Takım Elbise -->
                         <path d="M 20 240 L 30 140 L 45 110 L 75 110 L 90 140 L 100 240 Z" fill="#1e3a8a" />
