@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Axiom Precision</title>
+    <meta name="description" content="Eden Prime Accounting provides bookkeeping, payroll, tax preparation, financial analysis, reporting, and QuickBooks support for individuals and businesses.">
+    <meta name="theme-color" content="#ffffff">
+    <title>Eden Prime Accounting | Bookkeeping, Payroll & Tax Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Prata&display=swap" rel="stylesheet">
@@ -146,6 +148,7 @@
 
         /* Mavi Takımlı Adam Tasarımı ve Giriş Animasyonu */
         .businessman-svg {
+            display: none;
             height: 100%;
             width: auto;
             overflow: visible;
@@ -163,7 +166,7 @@
 
         /* Finansal Grafik Kutusu ve Giriş Animasyonu */
         .chart-panel {
-            width: 65%;
+            width: 100%;
             height: 230px;
             position: relative;
             background: #fafafa;
@@ -571,6 +574,149 @@
             .caps-right-text { justify-self: start; }
             .form-row { grid-template-columns: 1fr; }
         }
+    
+
+        /* Celebrating character inside the growth chart */
+        .success-character {
+            position: absolute;
+            right: 7%;
+            bottom: 10px;
+            width: 105px;
+            height: 185px;
+            z-index: 4;
+            overflow: visible;
+            transform-origin: bottom center;
+            animation: celebrateRise 3.5s ease-in-out 2s infinite alternate;
+            pointer-events: none;
+        }
+
+        .success-character .body-bounce {
+            transform-origin: center bottom;
+            animation: happyBounce 0.9s ease-in-out infinite alternate;
+        }
+
+        .success-character .left-arm {
+            transform-origin: 50px 78px;
+            animation: cheerLeft 0.85s ease-in-out infinite alternate;
+        }
+
+        .success-character .right-arm {
+            transform-origin: 66px 78px;
+            animation: cheerRight 0.85s ease-in-out infinite alternate;
+        }
+
+        .success-character .mouth {
+            fill: none;
+            stroke: #0f172a;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+        }
+
+        @keyframes celebrateRise {
+            0%   { transform: translateY(20px) scale(0.88); opacity: 0.45; }
+            55%  { transform: translateY(8px) scale(0.96); opacity: 0.8; }
+            100% { transform: translateY(-3px) scale(1); opacity: 1; }
+        }
+
+        @keyframes happyBounce {
+            from { transform: translateY(0); }
+            to   { transform: translateY(-5px); }
+        }
+
+        @keyframes cheerLeft {
+            from { transform: rotate(-8deg); }
+            to   { transform: rotate(-22deg); }
+        }
+
+        @keyframes cheerRight {
+            from { transform: rotate(8deg); }
+            to   { transform: rotate(22deg); }
+        }
+
+        @media (max-width: 600px) {
+            .success-character {
+                width: 78px;
+                height: 145px;
+                right: 3%;
+                bottom: 6px;
+            }
+        }
+
+        /* --- EDEN PRIME ENHANCEMENTS --- */
+        html { scroll-behavior: smooth; }
+
+        .service-rotator {
+            margin-top: 1.75rem;
+            min-height: 2.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.5rem;
+            font-size: 1.35rem;
+            color: var(--text-muted);
+        }
+
+        .service-prefix {
+            font-weight: 400;
+        }
+
+        #rotatingService {
+            color: var(--accent-blue);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            min-width: 240px;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        #rotatingService.fade-out {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        #rotatingService.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .info-value a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .info-value a:hover {
+            color: #60a5fa;
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 0 1.25rem; }
+            header { padding: 1rem 0; }
+            nav { gap: 0.8rem; }
+            nav a:not(.btn-consult) { display: none; }
+            .btn-consult { padding: 0.55rem 0.9rem; font-size: 0.7rem; }
+            .hero { padding-top: 3.5rem; }
+            .hero h1 { font-size: 2.65rem; }
+            .service-rotator { font-size: 1.05rem; }
+            #rotatingService { min-width: 190px; }
+            .section-padding { padding: 4rem 0; }
+            .capabilities h2, .consult-left h2 { font-size: 2.7rem; }
+            .matrix-item { min-height: 220px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -578,11 +724,11 @@
     <!-- 1. HEADER SECTION -->
     <header>
         <div class="container header-inner">
-            <div class="logo">Axiom<span>.Precision</span></div>
+            <div class="logo">EDEN<span>.PRIME</span></div>
             <nav>
                 <a href="#services">Services</a>
-                <a href="#consult">Approach</a>
-                <a href="#consult" class="btn-consult">Consult</a>
+                <a href="#about">About</a>
+                <a href="#consult" class="btn-consult">Book a Consultation</a>
             </nav>
         </div>
     </header>
@@ -592,8 +738,12 @@
         <div class="container">
             <div class="hero-main-grid">
                 <div>
-                    <span class="hero-tag">Fiscal Architecture</span>
-                    <h1>The Geometry<br>of Growth.</h1>
+                    <span class="hero-tag">Professional Accounting Services</span>
+                    <h1>Your Finances.<br>Your Growth.</h1>
+                    <div class="service-rotator" aria-live="polite">
+                        <span class="service-prefix">Trusted solutions for</span>
+                        <span id="rotatingService">Accounting</span>
+                    </div>
                 </div>
                 
                 <!-- İnteraktif Sahne Alanı (Adam + Grafik + Ok) -->
@@ -631,6 +781,42 @@
                             <path class="main-line" d="M 20 160 Q 90 110, 160 130 T 240 60 T 300 25" />
                             <circle class="chart-dot" r="5.5" cx="20" cy="160" />
                         </svg>
+
+                        <!-- Kâr yükseldikçe sevinen karakter -->
+                        <svg class="success-character" viewBox="0 0 120 210" aria-hidden="true">
+                            <g class="body-bounce">
+                                <!-- legs -->
+                                <path d="M48 158 L45 200" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+                                <path d="M72 158 L76 200" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+                                <!-- shoes -->
+                                <path d="M45 200 L32 202" stroke="#0f172a" stroke-width="8" stroke-linecap="round"/>
+                                <path d="M76 200 L89 202" stroke="#0f172a" stroke-width="8" stroke-linecap="round"/>
+                                <!-- torso / suit -->
+                                <path d="M38 92 Q60 78 82 92 L88 160 L32 160 Z" fill="#1e3a8a"/>
+                                <!-- shirt -->
+                                <path d="M51 88 L60 112 L69 88 Z" fill="#ffffff"/>
+                                <!-- tie -->
+                                <path d="M58 104 L62 104 L65 135 L60 143 L55 135 Z" fill="#38bdf8"/>
+                                <!-- head -->
+                                <circle cx="60" cy="62" r="24" fill="#fed7aa"/>
+                                <!-- hair -->
+                                <path d="M38 60 Q42 34 64 36 Q85 36 83 59 Q72 47 55 48 Q45 48 38 60 Z" fill="#1e293b"/>
+                                <!-- eyes -->
+                                <circle cx="51" cy="61" r="2.3" fill="#0f172a"/>
+                                <circle cx="69" cy="61" r="2.3" fill="#0f172a"/>
+                                <!-- smile -->
+                                <path class="mouth" d="M51 70 Q60 80 69 70"/>
+                                <!-- cheering arms -->
+                                <g class="left-arm">
+                                    <path d="M40 98 Q22 82 15 58" stroke="#1e3a8a" stroke-width="11" stroke-linecap="round" fill="none"/>
+                                    <circle cx="14" cy="54" r="7" fill="#fed7aa"/>
+                                </g>
+                                <g class="right-arm">
+                                    <path d="M80 98 Q99 80 106 55" stroke="#1e3a8a" stroke-width="11" stroke-linecap="round" fill="none"/>
+                                    <circle cx="107" cy="51" r="7" fill="#fed7aa"/>
+                                </g>
+                            </g>
+                        </svg>
                     </div>
 
                     <!-- Aşağı Kaydır Uyarısı ve Hareket Eden Ok -->
@@ -644,9 +830,9 @@
                 </div>
             </div>
             
-            <div class="hero-footer">
-                <p class="hero-desc">We transcend traditional bookkeeping to architect financial clarity — precise analysis, forecasting, and stewardship for visionary enterprises.</p>
-                <div class="live-pulse">Live Pulse<br><span>Aax • 2.0</span></div>
+            <div id="about" class="hero-footer">
+                <p class="hero-desc">Accounting, bookkeeping, payroll, tax preparation, and financial analysis designed to keep your business organized, compliant, and ready to grow.</p>
+                <div class="live-pulse">Serving Clients<br><span>Nationwide</span></div>
             </div>
         </div>
     </section>
@@ -656,39 +842,43 @@
         <div class="container">
             <div class="section-header-grid">
                 <div>
-                    <span class="caps-tag">The Service Matrix</span>
-                    <h2>Precision<br>Capabilities.</h2>
+                    <span class="caps-tag">Our Core Services</span>
+                    <h2>Complete Financial<br>Support.</h2>
                 </div>
-                <p class="caps-right-text">Five disciplines, one engine. Each module integrates into a unified financial architecture engineered for compounding clarity.</p>
+                <p class="caps-right-text">From daily bookkeeping to tax preparation and financial reporting, our services work together to give you clarity, confidence, and control.</p>
             </div>
             
             <div class="matrix-grid">
                 <div class="matrix-item">
                     <span class="matrix-num">01</span>
                     <h3 class="matrix-title">Bookkeeping</h3>
-                    <p class="matrix-desc">Flawless tracking and structural ledger maintenance built to scale with your transaction flow.</p>
+                    <p class="matrix-desc">Accurate transaction categorization, reconciliations, cleanup, and monthly books that stay current and decision-ready.</p>
                 </div>
                 <div class="matrix-item">
                     <span class="matrix-num">02</span>
                     <h3 class="matrix-title">Payroll</h3>
-                    <p class="matrix-desc">Automated compliance paired with human oversight. Your people, paid accurately and on time.</p>
+                    <p class="matrix-desc">Reliable payroll processing, employee and contractor support, and organized payroll records with a focus on accuracy and deadlines.</p>
                 </div>
                 <div class="matrix-item">
                     <span class="matrix-num">03</span>
                     <h3 class="matrix-title">Financial Analysis</h3>
-                    <p class="matrix-desc">Deep-dive assessment of capital performance, margins, and operational efficiency ratios.</p>
+                    <p class="matrix-desc">Meaningful analysis of revenue, expenses, margins, cash flow, and performance trends to support smarter business decisions.</p>
                 </div>
                 <div class="matrix-item">
                     <span class="matrix-num">04</span>
-                    <h3 class="matrix-title">Reporting</h3>
-                    <p class="matrix-desc">Elegant, executive-ready balance sheets and P&amp;L reports delivered with clinical clarity.</p>
+                    <h3 class="matrix-title">Tax Services</h3>
+                    <p class="matrix-desc">Professional tax preparation and filing support for individuals and businesses, with accuracy and compliance at every step.</p>
                 </div>
                 <div class="matrix-item">
                     <span class="matrix-num">05</span>
-                    <h3 class="matrix-title">Budget &amp; Forecast</h3>
-                    <p class="matrix-desc">Predictive data modeling designed to reduce uncertainty and secure corporate runways.</p>
+                    <h3 class="matrix-title">Financial Reporting</h3>
+                    <p class="matrix-desc">Clear balance sheets, profit and loss statements, cash-flow reporting, budgeting, and forward-looking analysis.</p>
                 </div>
-                <div class="matrix-item empty"></div>
+                <div class="matrix-item">
+                    <span class="matrix-num">06</span>
+                    <h3 class="matrix-title">QuickBooks</h3>
+                    <p class="matrix-desc">QuickBooks setup, cleanup, organization, and ongoing support tailored to your business workflow.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -698,21 +888,24 @@
         <div class="container">
             <div class="consult-grid">
                 <div class="consult-left">
-                    <span class="caps-tag">Strategic Inquiry</span>
-                    <h2>Begin a<br>Consultation.</h2>
-                    <p class="consult-p">This is an intake for a private consultation — not a generic contact box. Share where you are, and we'll architect the path to where you're going.</p>
+                    <span class="caps-tag">Start a Conversation</span>
+                    <h2>Let’s Build<br>Your Financial Clarity.</h2>
+                    <p class="consult-p">Tell us about your business and the support you need. We’ll follow up to discuss the right accounting, bookkeeping, payroll, tax, or reporting solution.</p>
                     
                     <div>
                         <span class="info-label">Inquiries</span>
-                        <p class="info-value">hello@axiomprecision.com</p>
+                        <p class="info-value"><a href="mailto:info@edenprimeacc.com">info@edenprimeacc.com</a></p>
                         
                         <span class="info-label">Location</span>
-                        <p class="info-value">Financial District<br>New York, NY</p>
+                        <p class="info-value">New Jersey<br>Serving Clients Nationwide</p>
+
+                        <span class="info-label">Phone</span>
+                        <p class="info-value"><a href="tel:+12014663800">+1 (201) 466-3800</a></p>
                     </div>
                 </div>
                 
                 <div>
-                    <form class="consult-form" onsubmit="event.preventDefault(); alert('Consultation request simulated successfully!');">
+                    <form class="consult-form" id="consultForm">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Name</label>
@@ -731,7 +924,7 @@
                             <label for="brief">Brief</label>
                             <textarea id="brief" rows="3" placeholder="Where are you now, and where are you going?"></textarea>
                         </div>
-                        <button type="submit" class="btn-submit">Request Consultation</button>
+                        <button type="submit" class="btn-submit">Request a Consultation</button>
                     </form>
                 </div>
             </div>
@@ -743,8 +936,8 @@
         <div class="container">
             <div class="footer-main">
                 <div class="footer-brand">
-                    <h3>Axiom<span>.Precision</span></h3>
-                    <p>The Geometry of Growth. Architecting financial clarity for visionary enterprises.</p>
+                    <h3>EDEN<span>.PRIME</span></h3>
+                    <p>Reliable accounting, bookkeeping, payroll, tax, and financial reporting for growing businesses.</p>
                 </div>
                 <div class="footer-links">
                     <h5>Capabilities</h5>
@@ -752,25 +945,73 @@
                         <li><a href="#services">Bookkeeping</a></li>
                         <li><a href="#services">Payroll</a></li>
                         <li><a href="#services">Financial Analysis</a></li>
-                        <li><a href="#services">Reporting</a></li>
-                        <li><a href="#services">Budget &amp; Forecast</a></li>
+                        <li><a href="#services">Tax Services</a></li>
+                        <li><a href="#services">Financial Reporting</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h5>Navigate</h5>
                     <ul>
                         <li><a href="#services">Services</a></li>
-                        <li><a href="#consult">Approach</a></li>
+                        <li><a href="#about">About</a></li>
                         <li><a href="#consult">Consult</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <div>© 2026 Axiom Precision. All rights reserved.</div>
-                <div class="footer-bottom-right">Fiscal Architecture • AAX 2.0</div>
+                <div>© 2026 Eden Prime Accounting Services. All rights reserved.</div>
+                <div class="footer-bottom-right">Accounting • Bookkeeping • Payroll • Tax</div>
             </div>
         </div>
     </footer>
+
+
+    <script>
+        const services = [
+            "Accounting",
+            "Bookkeeping",
+            "Financial Analysis",
+            "Payroll",
+            "Tax Preparation",
+            "Financial Reporting",
+            "QuickBooks Support"
+        ];
+
+        const rotatingService = document.getElementById("rotatingService");
+        let serviceIndex = 0;
+
+        setInterval(() => {
+            rotatingService.classList.add("fade-out");
+
+            setTimeout(() => {
+                serviceIndex = (serviceIndex + 1) % services.length;
+                rotatingService.textContent = services[serviceIndex];
+                rotatingService.classList.remove("fade-out");
+                rotatingService.classList.add("fade-in");
+
+                setTimeout(() => rotatingService.classList.remove("fade-in"), 300);
+            }, 250);
+        }, 1800);
+
+        document.getElementById("consultForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const company = document.getElementById("company").value.trim();
+            const brief = document.getElementById("brief").value.trim();
+
+            const subject = encodeURIComponent("Consultation Request - " + (company || name));
+            const body = encodeURIComponent(
+                "Name: " + name + "\n" +
+                "Email: " + email + "\n" +
+                "Company: " + (company || "Not provided") + "\n\n" +
+                "Message:\n" + (brief || "No additional details provided.")
+            );
+
+            window.location.href = "mailto:info@edenprimeacc.com?subject=" + subject + "&body=" + body;
+        });
+    </script>
 
 </body>
 </html>
