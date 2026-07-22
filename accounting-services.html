@@ -130,6 +130,87 @@
             transition: color 0.25s ease;
         }
 
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-button {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0;
+            color: var(--text-dark);
+            background: transparent;
+            border: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.25s ease;
+        }
+
+        .nav-dropdown-button:hover,
+        .nav-dropdown:focus-within .nav-dropdown-button {
+            color: var(--accent-blue);
+        }
+
+        .nav-dropdown-arrow {
+            font-size: 0.8rem;
+            transition: transform 0.25s ease;
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 1rem);
+            left: 50%;
+            z-index: 1200;
+            width: 240px;
+            padding: 0.65rem 0;
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, 10px);
+            transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+        }
+
+        .nav-dropdown::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 1rem;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown:focus-within .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0);
+        }
+
+        .nav-dropdown:hover .nav-dropdown-arrow,
+        .nav-dropdown:focus-within .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-dropdown-menu a {
+            display: block;
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            font-size: 0.74rem;
+            white-space: nowrap;
+        }
+
+        .nav-dropdown-menu a:hover,
+        .nav-dropdown-menu a.active {
+            color: var(--accent-blue);
+            background: #f8fafc;
+        }
+
         nav a:hover,
         nav a.active {
             color: var(--accent-blue);
@@ -672,6 +753,41 @@
                 font-size: 0.75rem;
             }
 
+            .nav-dropdown {
+                width: 100%;
+            }
+
+            .nav-dropdown-button {
+                width: 100%;
+                justify-content: space-between;
+                padding: 0.85rem 0;
+                font-size: 0.75rem;
+            }
+
+            .nav-dropdown-menu {
+                position: static;
+                width: 100%;
+                padding: 0 0 0.4rem 1rem;
+                border: none;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+            }
+
+            .nav-dropdown.open .nav-dropdown-menu {
+                display: block;
+            }
+
+            .nav-dropdown::after {
+                display: none;
+            }
+
+            .nav-dropdown-menu a {
+                padding: 0.7rem 0;
+            }
+
             .btn-consult {
                 margin-top: 0.5rem;
                 text-align: center;
@@ -776,11 +892,23 @@
 
             <nav id="mainNav">
                 <a href="index.html">Home</a>
-                <a href="accounting-services.html" class="active">Accounting</a>
-                <a href="tax-services.html">Tax</a>
-                <a href="payroll-services.html">Payroll</a>
-                <a href="legal-follow-up.html">Legal Follow-Up</a>
-                <a href="corporate-setup.html">Corporate Setup</a>
+                <a href="index.html#about">About</a>
+
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-button" type="button" aria-haspopup="true">
+                        Services
+                        <span class="nav-dropdown-arrow" aria-hidden="true">⌄</span>
+                    </button>
+
+                    <div class="nav-dropdown-menu">
+                        <a href="accounting-services.html" class="active">Accounting Services</a>
+                        <a href="tax-services.html">Tax Services</a>
+                        <a href="payroll-services.html">Payroll Services</a>
+                        <a href="legal-follow-up.html">Legal Follow-Up</a>
+                        <a href="corporate-setup.html">Corporate Setup</a>
+                    </div>
+                </div>
+
                 <a href="#consult" class="btn-consult">Book a Consultation</a>
             </nav>
         </div>
@@ -1209,6 +1337,8 @@
     <script>
         const menuToggle = document.getElementById("menuToggle");
         const mainNav = document.getElementById("mainNav");
+        const dropdown = document.querySelector(".nav-dropdown");
+        const dropdownButton = document.querySelector(".nav-dropdown-button");
         const currentYear = document.getElementById("currentYear");
         const consultForm = document.getElementById("consultForm");
 
@@ -1221,9 +1351,16 @@
             );
         });
 
+        dropdownButton.addEventListener("click", function () {
+            if (window.innerWidth <= 900) {
+                dropdown.classList.toggle("open");
+            }
+        });
+
         mainNav.querySelectorAll("a").forEach(function (link) {
             link.addEventListener("click", function () {
                 mainNav.classList.remove("open");
+                dropdown.classList.remove("open");
                 menuToggle.setAttribute("aria-expanded", "false");
             });
         });
