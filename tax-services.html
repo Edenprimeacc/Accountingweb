@@ -1,1 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Eden Prime provides individual, business, nonprofit, state, payroll, and international tax services with year-round planning and compliance support.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Tax Services | Eden Prime Accounting</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --navy:#070d1e;
+      --blue:#2563eb;
+      --blue-dark:#1d4ed8;
+      --text:#0f172a;
+      --muted:#64748b;
+      --light:#f8fafc;
+      --line:#e2e8f0;
+      --white:#fff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"DM Sans",sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
+    h1,h2,h3{font-family:"Prata",serif;font-weight:400}
+    img{display:block;max-width:100%}
+    a{color:inherit}
+    .container{width:100%;max-width:1280px;margin:auto;padding:0 2rem}
+    .section-padding{padding:6rem 0}
+    .section-tag{display:block;margin-bottom:1rem;color:var(--blue);font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+
+    header{position:sticky;top:0;z-index:1000;padding:1.35rem 0;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+    .logo{font-size:1.25rem;font-weight:700;letter-spacing:-.05em;text-decoration:none}
+    .logo span{color:var(--blue);font-weight:400}
+    nav{display:flex;align-items:center;gap:1.7rem}
+    nav a,.nav-dropdown-button{font-size:.75rem;font-weight:600;letter-spacing:.09em;text-decoration:none;text-transform:uppercase}
+    nav a:hover,.nav-dropdown-button:hover,.nav-dropdown-menu a.active{color:var(--blue)}
+    .nav-dropdown{position:relative}
+    .nav-dropdown-button{display:flex;align-items:center;gap:.4rem;border:0;background:transparent;cursor:pointer}
+    .nav-dropdown-menu{position:absolute;top:calc(100% + 1rem);left:50%;width:240px;padding:.65rem 0;background:#fff;border:1px solid var(--line);box-shadow:0 18px 45px rgba(15,23,42,.14);opacity:0;visibility:hidden;transform:translate(-50%,10px);transition:.25s}
+    .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{opacity:1;visibility:visible;transform:translate(-50%,0)}
+    .nav-dropdown-menu a{display:block;padding:.9rem 1.2rem;white-space:nowrap}
+    .nav-dropdown-menu a:hover,.nav-dropdown-menu a.active{background:#f8fafc}
+    .btn-consult{padding:.65rem 1.2rem;border:1px solid var(--text)}
+    .btn-consult:hover{background:var(--text);color:#fff}
+    .menu-toggle{display:none;width:44px;height:44px;border:1px solid var(--line);background:#fff;font-size:1.3rem;cursor:pointer}
+
+    .hero{padding:5.5rem 0;background:radial-gradient(circle at 85% 15%,rgba(37,99,235,.10),transparent 32%),#fff}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5rem}
+    .hero h1{font-size:clamp(3.2rem,6vw,5.7rem);line-height:1.05;letter-spacing:-.03em}
+    .hero h1 span{color:var(--blue)}
+    .hero p{max-width:650px;margin:1.6rem 0;color:var(--muted);font-size:1.15rem;line-height:1.75}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:.75rem;margin:2rem 0}
+    .hero-meta span{padding:.55rem .85rem;color:var(--blue);background:#eff6ff;border:1px solid #dbeafe;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .hero-image{padding:.85rem;background:var(--navy);box-shadow:0 30px 80px rgba(15,23,42,.18)}
+    .hero-image img{width:100%;aspect-ratio:4/3;object-fit:cover}
+    .primary-btn{display:inline-block;padding:1rem 1.45rem;background:var(--blue);color:#fff;text-decoration:none;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .primary-btn:hover{background:var(--blue-dark)}
+
+    .approach{border-top:1px solid var(--line)}
+    .approach-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:5rem;align-items:start}
+    .approach h2,.services-heading h2,.international h2,.why h2,.consult h2{font-size:clamp(2.6rem,4.5vw,4.4rem);line-height:1.12}
+    .approach h2 span,.international h2 span{color:var(--blue)}
+    .approach-copy p{margin-bottom:1.5rem;color:var(--muted);font-size:1.05rem;line-height:1.85}
+    .approach-copy .lead{color:var(--text);font-size:1.18rem}
+    .note{margin-top:2rem;padding:2rem;background:var(--light);border-left:4px solid var(--blue)}
+    .note strong{display:block;margin-bottom:.6rem}
+
+    .services{background:var(--navy);color:#fff}
+    .services-heading{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem}
+    .services-heading p{color:#94a3b8;font-size:1.05rem;line-height:1.75}
+    .service-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid rgba(255,255,255,.1);border-left:1px solid rgba(255,255,255,.1)}
+    .service-card{padding:2.5rem;border-right:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+    .service-card span{display:block;margin-bottom:1rem;color:#60a5fa;font-size:.75rem;font-weight:700;letter-spacing:.12em}
+    .service-card h3{margin-bottom:1rem;font-size:1.9rem}
+    .service-card p{color:#94a3b8;line-height:1.7}
+    .service-card ul{margin-top:1.2rem;padding-left:1.1rem;color:#cbd5e1;line-height:1.9}
+
+    .international-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+    .international-image{padding:.8rem;background:var(--navy);box-shadow:0 25px 65px rgba(15,23,42,.16)}
+    .international-image img{width:100%;aspect-ratio:4/3;object-fit:cover}
+    .international p{margin:1.4rem 0;color:var(--muted);font-size:1.05rem;line-height:1.8}
+    .check-list{display:grid;gap:.75rem}
+    .check-list div{padding:1rem 1.1rem;background:var(--light);border-left:3px solid var(--blue);font-weight:600}
+
+    .why{background:var(--light)}
+    .why-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:5rem}
+    .why-list{border-top:1px solid var(--line)}
+    .why-row{display:grid;grid-template-columns:55px 1fr;gap:1.2rem;padding:1.8rem 0;border-bottom:1px solid var(--line)}
+    .why-row>span{color:var(--blue);font-weight:700}
+    .why-row h3{margin-bottom:.5rem;font-size:1.5rem}
+    .why-row p{color:var(--muted);line-height:1.7}
+
+    .consult{background:var(--navy);color:#fff}
+    .consult-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem}
+    .consult p{margin:1.5rem 0;color:#94a3b8;line-height:1.7}
+    .info{margin-top:2rem;line-height:1.9}
+    .info a{text-decoration:none}
+    .form{display:grid;gap:1.6rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    label{display:block;margin-bottom:.45rem;color:#94a3b8;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+    input,textarea{width:100%;padding:.7rem 0;color:#fff;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.25);outline:none;font:inherit}
+    input:focus,textarea:focus{border-bottom-color:var(--blue)}
+    button[type=submit]{padding:1.1rem;border:0;background:var(--blue);color:#fff;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+
+    footer{padding:4rem 0 2rem;border-top:1px solid var(--line)}
+    .footer-main{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;margin-bottom:3rem}
+    .footer-brand h3{font-family:"DM Sans",sans-serif;font-size:2rem;font-weight:700}
+    .footer-brand h3 span{color:var(--blue);font-weight:400}
+    .footer-brand p{max-width:350px;margin-top:1rem;color:var(--muted);line-height:1.6}
+    .footer-links h5{margin-bottom:1.2rem;color:#94a3b8;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase}
+    .footer-links ul{list-style:none}
+    .footer-links li{margin-bottom:.7rem}
+    .footer-links a{text-decoration:none}
+    .footer-bottom{display:flex;justify-content:space-between;gap:2rem;padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem}
+
+    @media(max-width:900px){
+      .menu-toggle{display:block}
+      nav{position:absolute;top:100%;left:0;right:0;display:none;flex-direction:column;align-items:flex-start;padding:1rem 2rem;background:#fff;border-bottom:1px solid var(--line)}
+      nav.open{display:flex}
+      nav a,.nav-dropdown,.nav-dropdown-button{width:100%;padding:.8rem 0}
+      .nav-dropdown-menu{position:static;width:100%;padding-left:1rem;border:0;box-shadow:none;opacity:1;visibility:visible;transform:none;display:none}
+      .nav-dropdown.open .nav-dropdown-menu{display:block}
+      .hero-grid,.approach-grid,.services-heading,.international-grid,.why-grid,.consult-grid,.footer-main{grid-template-columns:1fr}
+      .service-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:620px){
+      .container{padding:0 1.25rem}
+      .section-padding{padding:4.5rem 0}
+      .hero{padding:4rem 0}
+      .form-row{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column}
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container header-inner">
+    <a href="index.html" class="logo">EDEN<span>.PRIME</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">☰</button>
+
+    <nav id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-button" id="dropdownButton" type="button">
+          Services <span>⌄</span>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="accounting-services.html">Accounting Services</a>
+          <a href="tax-services.html" class="active">Tax Services</a>
+          <a href="payroll-services.html">Payroll Services</a>
+          <a href="legal-follow-up.html">Legal Follow-Up</a>
+          <a href="corporate-setup.html">Corporate Setup</a>
+        </div>
+      </div>
+
+      <a href="#consult" class="btn-consult">Book a Consultation</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="section-tag">Tax Services</span>
+        <h1>More Than <span>Tax Preparation.</span></h1>
+        <p>
+          Accurate tax preparation, strategic planning, and year-round support
+          for individuals, businesses, nonprofit organizations, and foreign-owned entities.
+        </p>
+        <div class="hero-meta">
+          <span>1040</span><span>1065</span><span>1120</span><span>1120-S</span><span>990</span>
+        </div>
+        <a href="#consult" class="primary-btn">Book a Consultation</a>
+      </div>
+
+      <div class="hero-image">
+        <img src="Tax1.png" alt="Professional tax preparation workspace with federal tax forms, calculator, laptop, and tax documents">
+      </div>
+    </div>
+  </section>
+
+  <section class="approach section-padding">
+    <div class="container approach-grid">
+      <div>
+        <span class="section-tag">Our Tax Approach</span>
+        <h2>A Complete Review Before <span>Every Filing.</span></h2>
+      </div>
+
+      <div class="approach-copy">
+        <p class="lead">
+          At Eden Prime Accounting, tax preparation is only one part of what we do.
+          We provide consulting, planning, and ongoing support through a full-service,
+          integrated approach.
+        </p>
+        <p>
+          Before preparing a return, we review the company’s legal structure,
+          ownership, business activity, state of operation, and applicable filing
+          requirements. This helps reduce the risk of returns being filed under an
+          incorrect entity classification or without considering important compliance obligations.
+        </p>
+        <p>
+          We also review the bookkeeping records supporting the tax return. When
+          requested, we provide cleanup and organization services so the accounting
+          records can support reliable financial statements, tax preparation, and
+          audit readiness.
+        </p>
+        <p>
+          Deductions and filing requirements vary by entity type, industry, state,
+          ownership structure, and business activity. We evaluate the client’s full
+          situation to identify legitimate deductions and applicable filing obligations.
+        </p>
+        <div class="note">
+          <strong>Prepared beyond the filing deadline</strong>
+          Your records are organized not only for the current return, but also for
+          financial reporting, lender requests, future planning, and possible federal
+          or state review.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services section-padding">
+    <div class="container">
+      <div class="services-heading">
+        <div>
+          <span class="section-tag">Our Tax Services</span>
+          <h2>Federal, State, Business, and International Support.</h2>
+        </div>
+        <p>
+          Services are tailored to the client’s entity, ownership, industry,
+          location, and reporting responsibilities.
+        </p>
+      </div>
+
+      <div class="service-grid">
+        <article class="service-card">
+          <span>01 / INDIVIDUAL</span>
+          <h3>Individual Tax Returns</h3>
+          <p>Preparation and filing support for individual taxpayers and self-employed professionals.</p>
+          <ul><li>Form 1040</li><li>Schedule C</li><li>Amended and prior-year returns</li><li>ITIN application support</li></ul>
+        </article>
+
+        <article class="service-card">
+          <span>02 / BUSINESS</span>
+          <h3>Business Tax Returns</h3>
+          <p>Entity-specific tax preparation based on the company’s legal and tax classification.</p>
+          <ul><li>Partnerships — Form 1065</li><li>S Corporations — Form 1120-S</li><li>C Corporations — Form 1120</li><li>Single-member LLC reporting</li></ul>
+        </article>
+
+        <article class="service-card">
+          <span>03 / NONPROFIT</span>
+          <h3>Nonprofit Tax Services</h3>
+          <p>Annual information-return preparation and compliance support for qualifying organizations.</p>
+          <ul><li>Form 990</li><li>Form 990-EZ</li><li>Annual reporting support</li><li>Record review and organization</li></ul>
+        </article>
+
+        <article class="service-card">
+          <span>04 / STATE & PAYROLL</span>
+          <h3>State and Employment Taxes</h3>
+          <p>Ongoing support for state, payroll, and information-return responsibilities.</p>
+          <ul><li>Sales tax returns</li><li>Payroll tax filings</li><li>Forms 941 and 944</li><li>W-2 and 1099 preparation</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="international section-padding">
+    <div class="container international-grid">
+      <div class="international-image">
+        <img src="Tax2.png" alt="Forms 5471 and 5472 for international tax and foreign-owned business compliance">
+      </div>
+
+      <div>
+        <span class="section-tag">International Tax</span>
+        <h2>Foreign-Owned Business <span>Compliance.</span></h2>
+        <p>
+          We support foreign investors, international business owners, and
+          foreign-owned U.S. entities with specialized tax reporting and annual
+          compliance requirements.
+        </p>
+        <div class="check-list">
+          <div>Form 5471 reporting support</div>
+          <div>Form 5472 and foreign-owned entity compliance</div>
+          <div>Foreign-owned LLC and corporation reporting</div>
+          <div>ITIN and EIN application assistance</div>
+          <div>Cross-border documentation and annual filing support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why section-padding">
+    <div class="container why-grid">
+      <div>
+        <span class="section-tag">Why Eden Prime</span>
+        <h2>Year-Round Tax Support, Not a Seasonal Transaction.</h2>
+      </div>
+
+      <div class="why-list">
+        <div class="why-row"><span>01</span><div><h3>Integrated Review</h3><p>Tax, bookkeeping, entity structure, ownership, and compliance are considered together.</p></div></div>
+        <div class="why-row"><span>02</span><div><h3>Technology and Security</h3><p>We use multiple professional tax platforms and secure cloud-based systems to protect client information and support timely filing.</p></div></div>
+        <div class="why-row"><span>03</span><div><h3>Audit Readiness</h3><p>Organized books and supporting documentation help your company remain prepared for professional, lender, or government review.</p></div></div>
+        <div class="why-row"><span>04</span><div><h3>Ongoing Communication</h3><p>Clients receive relevant tax updates, audit considerations, filing reminders, and educational resources throughout the year.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="consult" class="consult section-padding">
+    <div class="container consult-grid">
+      <div>
+        <span class="section-tag">Start a Conversation</span>
+        <h2>Let’s Review Your Tax Situation.</h2>
+        <p>Tell us about your individual return, business entity, nonprofit organization, or international filing needs.</p>
+        <div class="info">
+          <div><a href="mailto:info@edenprimeacc.com">info@edenprimeacc.com</a></div>
+          <div><a href="tel:+12014663800">+1 (201) 466-3800</a></div>
+          <div>New Jersey · Serving Clients Nationwide</div>
+        </div>
+      </div>
+
+      <form class="form" id="consultForm">
+        <div class="form-row">
+          <div><label for="name">Name</label><input id="name" required></div>
+          <div><label for="email">Email</label><input id="email" type="email" required></div>
+        </div>
+        <div><label for="company">Entity / Company</label><input id="company"></div>
+        <div><label for="brief">Tax Needs</label><textarea id="brief" rows="5" placeholder="Tell us about the return, entity, filing period, or tax support you need."></textarea></div>
+        <button type="submit">Request a Consultation</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand"><h3>EDEN<span>.PRIME</span></h3><p>Reliable accounting, bookkeeping, payroll, tax, and financial reporting for growing businesses.</p></div>
+      <div class="footer-links"><h5>Services</h5><ul><li><a href="accounting-services.html">Accounting</a></li><li><a href="tax-services.html">Tax Services</a></li><li><a href="payroll-services.html">Payroll</a></li><li><a href="corporate-setup.html">Corporate Setup</a></li><li><a href="legal-follow-up.html">Legal Follow-Up</a></li></ul></div>
+      <div class="footer-links"><h5>Navigate</h5><ul><li><a href="index.html">Home</a></li><li><a href="#consult">Consult</a></li><li><a href="mailto:info@edenprimeacc.com">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><div>© <span id="year"></span> Eden Prime Accounting Services. All rights reserved.</div><div>Tax • Accounting • Reporting • Advisory</div></div>
+  </div>
+</footer>
+
+<script>
+  const menuToggle=document.getElementById("menuToggle");
+  const mainNav=document.getElementById("mainNav");
+  const dropdown=document.querySelector(".nav-dropdown");
+  const dropdownButton=document.getElementById("dropdownButton");
+  menuToggle.addEventListener("click",()=>mainNav.classList.toggle("open"));
+  dropdownButton.addEventListener("click",()=>{if(window.innerWidth<=900)dropdown.classList.toggle("open")});
+  document.getElementById("year").textContent=new Date().getFullYear();
+
+  document.getElementById("consultForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    const name=document.getElementById("name").value.trim();
+    const email=document.getElementById("email").value.trim();
+    const company=document.getElementById("company").value.trim();
+    const brief=document.getElementById("brief").value.trim();
+    const subject=encodeURIComponent("Tax Services Consultation - "+(company||name));
+    const body=encodeURIComponent(
+      "Name: "+name+"\n"+
+      "Email: "+email+"\n"+
+      "Entity / Company: "+(company||"Not provided")+"\n\n"+
+      "Tax needs:\n"+(brief||"No additional details provided.")
+    );
+    window.location.href="mailto:info@edenprimeacc.com?subject="+subject+"&body="+body;
+  });
+</script>
+</body>
+</html>
